@@ -12,7 +12,6 @@ const createProblem = async (req,res)=>{
         referenceSolution, problemCreator
     } = req.body;
 
-
     try{
        
       for(const {language,completeCode} of referenceSolution){
@@ -44,10 +43,11 @@ const createProblem = async (req,res)=>{
        const testResult = await submitToken(resultToken);
 
 
-       console.log(testResult);
+      //  console.log(testResult);
 
        for(const test of testResult){
         if(test.status_id!=3){
+          console.log(test.status_id);
          return res.status(400).send("Error Occured");
         }
        }
@@ -68,6 +68,7 @@ const createProblem = async (req,res)=>{
         res.status(400).send("Error: "+err);
     }
 }
+
 
 const updateProblem = async (req,res)=>{
     
@@ -160,6 +161,7 @@ const deleteProblem = async(req,res)=>{
 }
 
 
+
 const getProblemById = async(req,res)=>{
 
   const {id} = req.params;
@@ -195,7 +197,7 @@ const getProblemById = async(req,res)=>{
   catch(err){
     res.status(500).send("Error: "+err);
   }
-}
+} 
 
 const getAllProblem = async(req,res)=>{
 

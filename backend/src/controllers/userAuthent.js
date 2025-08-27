@@ -12,17 +12,13 @@ const register = async (req,res)=>{
         // validate the data;
       console.log(req.body);
       validate(req.body); 
-      console.log("Hello");
       const {firstName, emailId, password}  = req.body;
-
 
       req.body.password = await bcrypt.hash(password, 10);
       req.body.role = 'user'
-    //
-    
-     const user =  await User.create(req.body);
-     const token =  jwt.sign({_id:user._id , emailId:emailId, role:'user'},process.env.JWT_KEY,{expiresIn: 60*60});
-     const reply = {
+    const user =  await User.create(req.body);
+    const token =  jwt.sign({_id:user._id , emailId:emailId, role:'user'},process.env.JWT_KEY,{expiresIn: 60*60});
+    const reply = {
         firstName: user.firstName,
         emailId: user.emailId,
         _id: user._id,
@@ -36,6 +32,7 @@ const register = async (req,res)=>{
     })
     }
     catch(err){
+        console.log("Error :- "+err);
         res.status(400).send("Error: "+err);
     }
 }
