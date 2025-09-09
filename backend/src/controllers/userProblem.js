@@ -69,6 +69,28 @@ const createProblem = async (req,res)=>{
     }
 }
 
+const getProblemByIdForAdmin = async(req,resp)=>{
+    const {id} = req.params;
+    try{
+      if(!id)
+        return resp.status(400).send("ID is Missing");
+      const getProblem = await Problem.findById(id);
+      if(!getProblem){
+        return resp.status(404).send("Problem Not Found");
+      }
+      resp.status(200).send(
+        {
+          success:true,
+          data:getProblem
+        }
+      )
+    }
+    catch(err){
+      console.error("Error Fetching Problem for Admin: ", err);
+      resp.status(500).send("Internal Server Error");
+    }
+}
+
 
 const updateProblem = async (req,res)=>{
     
@@ -258,6 +280,6 @@ const submittedProblem = async(req,res)=>{
 
 
 
-module.exports = {createProblem,updateProblem,deleteProblem,getProblemById,getAllProblem,solvedAllProblembyUser,submittedProblem};
+module.exports = {createProblem,getProblemByIdForAdmin,updateProblem,deleteProblem,getProblemById,getAllProblem,solvedAllProblembyUser,submittedProblem};
 
 

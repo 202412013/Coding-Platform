@@ -106,7 +106,7 @@ const AdminUpdate = () => {
                           to={`/admin/problem/edit/${problem._id}`}
                           className={`btn bg-blue-600`}
                           >
-                          Upload
+                          Update
                       </NavLink>
                     </button>
                   </td>
